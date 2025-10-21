@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "742745941581",
+    "project_id": "st10102025",
+    "storage_bucket": "st10102025.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:742745941581:android:429c13bd1a333e3eb61e04",
+        "android_client_info": {
+          "package_name": "com.example.securetrack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp1pVAR_zM6AYVr0nk4Iq6n4Gto4WRxCc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

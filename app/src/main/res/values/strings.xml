@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">SecureTrack</string>
+    
+    <!-- Login Activity Strings -->
+    <string name="app_logo">SecureTrack Logo</string>
+    <string name="login_subtitle">Secure your digital journey</string>
+    <string name="email_hint">Email Address</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Login</string>
+    <string name="signup_button">Sign Up</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="demo_credentials_info">Demo: demo@securetrack.com / password123</string>
+    
+    <!-- Validation Messages -->
+    <string name="email_required">Email is required</string>
+    <string name="password_required">Password is required</string>
+    <string name="invalid_email">Please enter a valid email address</string>
+    <string name="password_too_short">Password must be at least 6 characters</string>
+    <string name="signup_failed">signup_failed</string>
+    <string name="signup_successful">signup_successful</string>
+    <string name="passwords_do_not_match">password_do_not_match</string>
+    
+    <!-- Authentication Messages -->
+    <string name="login_successful">Login successful!</string>
+    <string name="login_failed">Invalid email or password</string>
+    <string name="signup_feature_coming_soon">Sign up feature coming soon!</string>
+    <string name="confirm_password_hint">Confirm Password</string>
+
+</resources>
