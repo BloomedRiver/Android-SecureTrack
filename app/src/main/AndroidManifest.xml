@@ -42,6 +42,12 @@
         <activity
             android:name=".MapActivity"
             android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TrustedContactsActivity"
+            android:exported="false" />
         
         <!-- Location Service -->
         <service

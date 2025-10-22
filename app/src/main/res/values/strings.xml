@@ -27,5 +27,29 @@
     <string name="confirm_password_hint">Confirm Password</string>
     <string name="name_hint">Full Name</string>
     <string name="name_required">Name is required</string>
+    
+    <!-- Main Activity Strings -->
+    <string name="location_tracking_started">Location tracking started</string>
+    <string name="location_tracking_stopped">Location tracking stopped</string>
+    <string name="getting_current_location">Getting current location...</string>
+    <string name="location_permissions_granted">Location permissions granted</string>
+    <string name="location_permissions_denied">Location permissions denied</string>
+    <string name="location_permissions_required">Location permissions are required for this app to work properly</string>
+    
+    <!-- Settings Activity Strings -->
+    <string name="edit_profile_coming_soon">Edit Profile feature coming soon</string>
+    <string name="privacy_policy_coming_soon">Privacy Policy feature coming soon</string>
+    <string name="logged_out_successfully">Logged out successfully</string>
+    <string name="no_user_logged_in">No user logged in</string>
+    
+    <!-- Trusted Contacts Strings -->
+    <string name="trusted_contacts">Trusted Contacts</string>
+    <string name="add_trusted_contact">Add Trusted Contact</string>
+    <string name="enter_invitation_code">Enter invitation code</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="your_trusted_contacts">Your Trusted Contacts</string>
+    <string name="trusted_contact_added_successfully">Trusted contact added successfully!</string>
+    <string name="failed_to_add_trusted_contact">Failed to add trusted contact</string>
+    <string name="please_enter_invitation_code">Please enter an invitation code</string>
 
 </resources>

@@ -10,6 +10,8 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -91,8 +93,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendRegistrationToServer(String token) {
-        // TODO: Implement this method to send the token to your server
-        // This should update the user's document in Firestore with the new FCM token
-        Log.d(TAG, "Token to be sent to server: " + token);
+        // Get the current user's UID
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            String userId = auth.getCurrentUser().getUid();
+            
+            // Update the user's document in Firestore with the new FCM token
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("users").document(userId)
+                .update("fcmToken", token)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "FCM token updated successfully in Firestore");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Failed to update FCM token in Firestore", e);
+                });
+        } else {
+            Log.w(TAG, "No authenticated user found, cannot update FCM token");
+        }
     }
 }
