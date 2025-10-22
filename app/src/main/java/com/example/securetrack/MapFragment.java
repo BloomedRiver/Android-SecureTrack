@@ -91,6 +91,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             } catch (SecurityException e) {
                 e.printStackTrace(); // Should not happen
             }
+            // Ensure info window clicks are delivered to this fragment
+            mMap.setOnInfoWindowClickListener(this);
             loadUserData();
         } else {
             requestLocationPermission();
@@ -163,7 +165,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
                                 // Get the trusted contact's user ID
-                                String trustedUserId = document.getString("userId");
+                                String trustedUserId = document.getString("uid");
+                                if (trustedUserId == null || trustedUserId.isEmpty()) {
+                                    trustedUserId = document.getString("userId");
+                                }
+                                if (trustedUserId == null || trustedUserId.isEmpty()) {
+                                    trustedUserId = document.getId();
+                                }
                                 if (trustedUserId != null) {
                                     loadTrustedContactData(trustedUserId);
                                 }

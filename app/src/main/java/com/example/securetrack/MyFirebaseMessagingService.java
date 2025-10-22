@@ -12,6 +12,12 @@ import androidx.core.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
@@ -91,8 +97,37 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendRegistrationToServer(String token) {
-        // TODO: Implement this method to send the token to your server
-        // This should update the user's document in Firestore with the new FCM token
-        Log.d(TAG, "Token to be sent to server: " + token);
+        Log.d(TAG, "Attempting to send FCM token to server: " + token);
+
+        // Delegate to static helper for reuse from other components
+        updateUserFcmToken(token);
+    }
+
+    /**
+     * Updates the authenticated user's Firestore document with the provided FCM token.
+     * Safe to call from anywhere (no context required). Uses merge to avoid overwriting fields.
+     */
+    public static void updateUserFcmToken(String token) {
+        if (token == null || token.isEmpty()) {
+            Log.w(TAG, "Cannot update FCM token: token is null or empty");
+            return;
+        }
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            Log.w(TAG, "No authenticated user; skipping FCM token update");
+            return;
+        }
+
+        String uid = auth.getCurrentUser().getUid();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> update = new HashMap<>();
+        update.put("fcmToken", token);
+
+        db.collection("users").document(uid)
+                .set(update, SetOptions.merge())
+                .addOnSuccessListener(aVoid -> Log.d(TAG, "FCM token updated for user: " + uid))
+                .addOnFailureListener(e -> Log.e(TAG, "Failed to update FCM token for user: " + uid, e));
     }
 }

@@ -22,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -121,6 +122,12 @@ public class Register extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null) {
                                 createUserDocument(user.getUid(), name, email);
+                                // Also fetch and store FCM token on successful signup
+                                FirebaseMessaging.getInstance().getToken()
+                                        .addOnSuccessListener(token -> MyFirebaseMessagingService.updateUserFcmToken(token))
+                                        .addOnFailureListener(e -> {
+                                            // Non-fatal: token will be refreshed later
+                                        });
                             }
                         } else {
                             progressBar.setVisibility(View.GONE);

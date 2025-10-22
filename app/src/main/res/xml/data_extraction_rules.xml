@@ -5,15 +5,19 @@
 -->
 <data-extraction-rules>
     <cloud-backup>
-        <!-- TODO: Use <include> and <exclude> to control what is backed up.
-        <include .../>
-        <exclude .../>
-        -->
+        <!-- Include app preferences (non-sensitive) -->
+        <include domain="sharedpref" path="preferences.xml"/>
+
+        <!-- Exclude sensitive caches and tokens -->
+        <exclude domain="sharedpref" path="com.google.firebase.messaging"/>
+        <exclude domain="database" path="/"/>
+        <exclude domain="external" path="/"/>
+        <exclude domain="file" path="/cache/"/>
     </cloud-backup>
-    <!--
     <device-transfer>
-        <include .../>
-        <exclude .../>
+        <!-- Allow preferences to transfer on device-to-device migration -->
+        <include domain="sharedpref" path="preferences.xml"/>
+        <!-- Keep caches and tokens excluded -->
+        <exclude domain="file" path="/cache/"/>
     </device-transfer>
-    -->
 </data-extraction-rules>

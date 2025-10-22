@@ -6,8 +6,12 @@
    See https://developer.android.com/about/versions/12/backup-restore
 -->
 <full-backup-content>
-    <!--
-   <include domain="sharedpref" path="."/>
-   <exclude domain="sharedpref" path="device.xml"/>
--->
+    <!-- Include only non-sensitive shared preferences -->
+    <include domain="sharedpref" path="preferences.xml"/>
+    
+    <!-- Exclude caches, databases, and FCM-related preferences/tokens -->
+    <exclude domain="database" path="/"/>
+    <exclude domain="external" path="/"/>
+    <exclude domain="file" path="/cache/"/>
+    <exclude domain="sharedpref" path="com.google.firebase.messaging"/>
 </full-backup-content>

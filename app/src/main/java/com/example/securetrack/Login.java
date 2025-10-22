@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Login extends AppCompatActivity {
 
@@ -110,6 +111,9 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
+                            // Ensure the latest FCM token is associated with this user
+                            FirebaseMessaging.getInstance().getToken()
+                                    .addOnSuccessListener(token -> MyFirebaseMessagingService.updateUserFcmToken(token));
                             Intent intent = new Intent(Login.this, MainActivity.class);
                             startActivity(intent);
                             finish();
