@@ -40,13 +40,12 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.cardview)
     implementation(libs.firebase.auth)
-    implementation(libs.play.services.location)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
+    implementation(libs.firebase.functions)
+    implementation(libs.play.services.location)
     implementation(libs.play.services.maps)
-    implementation(platform(libs.firebase.bom))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
 }

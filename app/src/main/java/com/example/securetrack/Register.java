@@ -20,16 +20,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-// removed unused FirebaseUser import
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Register extends AppCompatActivity {
 
+    private EditText editTextName;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
     private Button buttonCreateAccount;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,8 @@ public class Register extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        editTextName = findViewById(R.id.editTextName);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
@@ -60,9 +68,16 @@ public class Register extends AppCompatActivity {
     }
 
     private void attemptRegister() {
+        String name = editTextName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(name)) {
+            editTextName.setError(getString(R.string.name_required));
+            editTextName.requestFocus();
+            return;
+        }
 
         if (TextUtils.isEmpty(email)) {
             editTextEmail.setError(getString(R.string.email_required));
@@ -101,15 +116,48 @@ public class Register extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // User registration successful, now create user document in Firestore
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (user != null) {
+                                createUserDocument(user.getUid(), name, email);
+                            }
+                        } else {
+                            progressBar.setVisibility(View.GONE);
+                            buttonCreateAccount.setEnabled(true);
+                            Toast.makeText(Register.this, getString(R.string.signup_failed), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void createUserDocument(String uid, String name, String email) {
+        // Create a new user document in Firestore
+        Map<String, Object> user = new HashMap<>();
+        user.put("name", name);
+        user.put("email", email);
+        user.put("uid", uid);
+        user.put("fcmToken", null);
+
+        db.collection("users").document(uid)
+                .set(user)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
                         progressBar.setVisibility(View.GONE);
                         buttonCreateAccount.setEnabled(true);
+                        
                         if (task.isSuccessful()) {
                             Toast.makeText(Register.this, getString(R.string.signup_successful), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Register.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else {
-                            Toast.makeText(Register.this, getString(R.string.signup_failed), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Register.this, "Registration successful but failed to save user data", Toast.LENGTH_LONG).show();
+                            // Still navigate to main activity since authentication was successful
+                            Intent intent = new Intent(Register.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
                     }
                 });

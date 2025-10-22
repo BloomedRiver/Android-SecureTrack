@@ -109,7 +109,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(),"Login Succesful",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(Login.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -119,32 +119,7 @@ public class Login extends AppCompatActivity {
                         }
                     }
                 });
-        // Here you would typically authenticate with your backend
-        // For now, we'll just simulate a successful login
-        authenticateUser(email, password);
     }
 
-    private void authenticateUser(String email, String password) {
-        // TODO: Implement actual authentication logic
-        // This could involve:
-        // - Firebase Authentication
-        // - API calls to your backend
-        // - Local database validation
-        // - etc.
-
-        // For demonstration purposes, we'll simulate authentication
-        if (email.equals("demo@securetrack.com") && password.equals("password123")) {
-            // Successful login
-            Toast.makeText(this, getString(R.string.login_successful), Toast.LENGTH_SHORT).show();
-            
-            // Navigate to main activity
-            Intent intent = new Intent(Login.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            // Failed login
-            Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_LONG).show();
-        }
-    }
 }
 

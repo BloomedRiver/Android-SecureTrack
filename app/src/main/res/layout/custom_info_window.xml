@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/rounded_background"
+    android:elevation="4dp">
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Name"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:id="@+id/tv_last_seen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last seen: Never"
+        android:textSize="12sp"
+        android:textColor="@android:color/darker_gray" />
+
+</LinearLayout>

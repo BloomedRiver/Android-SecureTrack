@@ -25,5 +25,7 @@
     <string name="login_failed">Invalid email or password</string>
     <string name="signup_feature_coming_soon">Sign up feature coming soon!</string>
     <string name="confirm_password_hint">Confirm Password</string>
+    <string name="name_hint">Full Name</string>
+    <string name="name_required">Name is required</string>
 
 </resources>

@@ -12,7 +12,9 @@ googleGmsGoogleServices = "4.4.4"
 firebaseAuth = "24.0.1"
 firebaseFirestore = "26.0.2"
 firebaseMessaging = "25.0.1"
-firebaseBom = "34.4.0"
+firebaseFunctions = "22.0.1"
+playServicesLocation = "21.3.0"
+playServicesMaps = "19.2.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -24,12 +26,11 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 cardview = { group = "androidx.cardview", name = "cardview", version.ref = "cardview" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
-play-services-location = { group = "com.google.android.gms", name = "play-services-location", version = "21.3.0" }
-play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version = "19.2.0" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
-
+firebase-functions = { group = "com.google.firebase", name = "firebase-functions", version.ref = "firebaseFunctions" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
